@@ -33,7 +33,12 @@ export class WebsiteDetector {
 
   private static findChatGPTAnswers(website: 'chatgpt'): AIAnswerElement[] {
     // ChatGPT answer containers - looking for assistant messages
-    const answerElements = document.querySelectorAll('[data-testid^="conversation-turn-"], [data-message-author-role="assistant"]');
+    const answerElements = document.querySelectorAll([
+      '[data-testid^="conversation-turn-"]',
+      '[data-message-author-role="assistant"]',
+      '.group\\/conversation-turn',
+      '[data-testid="bot-message"]'
+    ].join(', '));
     const answers: AIAnswerElement[] = [];
 
     answerElements.forEach(el => {
@@ -52,7 +57,13 @@ export class WebsiteDetector {
 
   private static findClaudeAnswers(website: 'claude'): AIAnswerElement[] {
     // Claude answer containers
-    const answerElements = document.querySelectorAll('[data-testid="message"], .font-claude-message, .prose');
+    const answerElements = document.querySelectorAll([
+      '[data-testid="message"]',
+      '.font-claude-message',
+      '.prose',
+      '[role="article"]',
+      '.message-content'
+    ].join(', '));
     const answers: AIAnswerElement[] = [];
 
     answerElements.forEach(el => {
@@ -72,7 +83,13 @@ export class WebsiteDetector {
 
   private static findPerplexityAnswers(website: 'perplexity'): AIAnswerElement[] {
     // Perplexity answer containers
-    const answerElements = document.querySelectorAll('.prose, [data-testid="answer"], .answer-content');
+    const answerElements = document.querySelectorAll([
+      '.prose',
+      '[data-testid="answer"]',
+      '.answer-content',
+      '.result-content',
+      '[role="article"]'
+    ].join(', '));
     const answers: AIAnswerElement[] = [];
 
     answerElements.forEach(el => {
